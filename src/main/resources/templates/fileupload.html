@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <object th:include="fragments/head :: head" th:remove="tag"></object>
+
+    <link th:href="@{/assets/pages/css/profile.min.css}" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+<form method="post" enctype="multipart/form-data"
+      th:action="@{/uploadExcelFile}">
+    <input type="file" name="file" accept=".xls,.xlsx" />
+    <input type="submit" value="Upload file" />
+</form>
+
+
+</body>
+</html>

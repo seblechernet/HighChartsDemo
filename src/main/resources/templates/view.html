@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <object th:include="fragments/head :: head" th:remove="tag"></object>
+
+    <link th:href="@{/assets/pages/css/profile.min.css}" rel="stylesheet" type="text/css" />
+    <style>
+        table,td{
+            border: 1px solid black;
+            border-collapse: collapse;
+            background-color: #eee;
+        }
+        th{
+            border: 1px solid black;
+            color: white;
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+<!--<form-->
+        <!--th:action="@{/chart}"-->
+        <!--th:object="${sales}"-->
+        <!--method="post"-->
+       <!--&gt;-->
+
+<h3>Sale on May 2017</h3>
+<table >
+    <tr>
+        <th>ID</th>
+        <th>Sales Person</th>
+        <th>Item</th>
+        <th>Quantity</th>
+        <th>Amount</th>
+    </tr>
+    <tr th:each="sale:${sales}">
+        <td th:text="${sale.id}"></td>
+        <td th:text="${sale.salesPerson}"></td>
+        <td th:text="${sale.item}"></td>
+        <td th:text="${sale.quantity}"></td>
+        <td th:text="${sale.amount}"></td>
+
+    </tr>
+</table>
+
+<select class="form-control" th:value="date">
+    <option th:value="may">May</option>
+    <option th:value="june">June</option>
+    <option th:value="july">July</option>
+    <option th:value="august">August</option>
+    <option th:value="september">September</option>
+    <option th:value="october">October</option>
+    <option th:value="november">November</option>
+    <option th:value="december">December</option>
+    <option th:value="january">January</option>
+    <option th:value="february">February</option>
+    <option th:value="march">March</option>
+    <option th:value="april">April</option>
+</select>
+    <!--<input type="submit" value="Generate Chart" />-->
+<a class="nav-link" href="/chart">Generate Chart</a>
+
+<!--</form>-->
+</body>
+</html>
