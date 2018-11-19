@@ -20,13 +20,9 @@
     </style>
 </head>
 <body>
-<!--<form-->
-        <!--th:action="@{/chart}"-->
-        <!--th:object="${sales}"-->
-        <!--method="post"-->
-       <!--&gt;-->
 
-<h3>Sale on May 2017</h3>
+
+<h3>Sale on 2017</h3>
 <table >
     <tr>
         <th>ID</th>
@@ -35,17 +31,20 @@
         <th>Quantity</th>
         <th>Amount</th>
     </tr>
-    <tr th:each="sale:${sales}">
+    <tr th:each="sale : ${sales}">
         <td th:text="${sale.id}"></td>
         <td th:text="${sale.salesPerson}"></td>
         <td th:text="${sale.item}"></td>
         <td th:text="${sale.quantity}"></td>
         <td th:text="${sale.amount}"></td>
-
+        <td th:text="${sale.date}"></td>
     </tr>
 </table>
-
-<select class="form-control" th:value="date">
+<form
+th:action="@{/chart}"
+method="post"
+>
+<select id="date" name="date">
     <option th:value="may">May</option>
     <option th:value="june">June</option>
     <option th:value="july">July</option>
@@ -59,9 +58,17 @@
     <option th:value="march">March</option>
     <option th:value="april">April</option>
 </select>
-    <!--<input type="submit" value="Generate Chart" />-->
-<a class="nav-link" href="/chart">Generate Chart</a>
+<select id="quarter" name="quarter">
+        <option th:value="q1">Q1</option>
+        <option th:value="q2">Q2</option>
+        <option th:value="q3">Q3</option>
+        <option th:value="q4">Q4</option>
 
-<!--</form>-->
+    </select>
+    <input type="submit" value="Generate Chart" />
+
+<!--<a class="nav-link" href="/chart">Generate Chart</a>-->
+
+</form>
 </body>
 </html>

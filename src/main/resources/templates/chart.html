@@ -81,19 +81,19 @@
                         colorByPoint:true,
                         data: [{
                             name: 'Marty',
-                            y: [[${marty.amount}]]
+                            y: [[${sale1.amount}]]
                         },{
                             name: 'Mai',
-                            y: [[${mai.amount}]]
+                            y: [[${sale2.amount}]]
                         },{
                             name: 'Shristi',
-                            y: [[${shristi.amount}]]
+                            y: [[${sale3.amount}]]
                         },{
                             name: 'Seble',
-                            y: [[${seble.amount}]]
+                            y: [[${sale4.amount}]]
                         },{
                                 name: 'Rediet',
-                                y: [[${rediet.amount}]]
+                                y: [[${sale5.amount}]]
                             }]
                 	}]
                 });
@@ -115,11 +115,11 @@
                         text: 'Sales by Lure Type'
                     },
                     xAxis: {
-                        categories: ['May', 'June', 'July']
+                        categories: ['Agust', 'September', 'November']
                     },
                     yAxis: {
                         title: {
-                            text: 'Sales (US $)'
+                            text: 'Our Sales (US $)'
                         }
                     },
                     tooltip: {
@@ -134,18 +134,25 @@
                         }
                     },
                     series: [{
-                        name: 'Inshore',
-                        data: /*[[${inshoreSales}]]*/ []
+                        name: 'Marty',
+                        data: [[${MartySales}]]
                     }, {
-                        name: 'Nearshore',
-                        data: /*[[${nearshoreSales}]]*/ []
+                        name: 'Mai',
+                        data: [[${MaiSales}]]
                     }, {
-                        name: 'Offshore',
-                        data: /*[[${offshoreSales}]]*/ []
+                            name: 'Seble',
+                            data: [[${SebleSales}]]
+                        }, {
+                        name: 'Shristi',
+                        data: [[${ShristiSales}]]
+                    },
+                        {
+                        name: 'Rediet',
+                        data:[[${RedietSales}]]
                     }]
                 });
             }
-            /*]]>*/
+            // ]]>
         </script>        
     </body>
 </html>

@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.apache.poi.ss.usermodel.Row;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -24,30 +25,29 @@ public class ChartController {
     private String fileLocation;
 
     @GetMapping("/")
-    public String upload(){
+    public String upload() {
 
 
         return "fileupload";
     }
 
 
-
     @PostMapping("/uploadExcelFile")
-    public String uploadFile(Model model,@RequestParam MultipartFile file) throws IOException {
+    public String uploadFile(Model model, @RequestParam MultipartFile file) throws IOException {
         System.out.println(file.getOriginalFilename());
         System.out.println(file.getName());
 
 
-        String excelFilepath= file.getOriginalFilename();
+        String excelFilepath = file.getOriginalFilename();
         FileInputStream input = new FileInputStream(new File(excelFilepath));
 
-        Workbook workbook=new XSSFWorkbook(input);
-        Sheet sheet=workbook.getSheetAt(0);
+        Workbook workbook = new XSSFWorkbook(input);
+        Sheet sheet = workbook.getSheetAt(0);
 
         Row row;
         for (int i = 1; i <= sheet.getLastRowNum(); i++) {
             row = sheet.getRow(i);
-            Sale sale=new Sale();
+            Sale sale = new Sale();
             long id = (long) row.getCell(0).getNumericCellValue();
             sale.setId(id);
             String salesPerson = row.getCell(1).getStringCellValue();
@@ -58,9 +58,9 @@ public class ChartController {
             sale.setQuantity(quantity);
             double amount = row.getCell(4).getNumericCellValue();
             sale.setAmount(amount);
-            String date=row.getCell(5).getStringCellValue();
+            String date = row.getCell(5).getStringCellValue();
             sale.setDate(date);
-            System.out.println(id +"\t\t\t"+ salesPerson +"\t\t\t"+item+ "\t\t\t"+quantity + "\t\t\t"+amount+"\t\t\t"+date);
+            System.out.println(id + "\t\t\t" + salesPerson + "\t\t\t" + item + "\t\t\t" + quantity + "\t\t\t" + amount + "\t\t\t" + date);
             saleRepository.save(sale);
         }
 
@@ -69,17 +69,31 @@ public class ChartController {
 
         return "redirect:/view";
     }
-    @GetMapping("/view")
-    public String view(Model model){
-        model.addAttribute("sales",saleRepository.findAll());
 
+    @GetMapping("/view")
+    public String view(Model model) {
+        for (Sale sale : saleRepository.findAll()) {
+            sale.getDate();
+        }
+        model.addAttribute("sales", saleRepository.findAll());
 
         return "view";
     }
+//    @PostMapping("/process")
+//    public String view(@RequestParam String date){
+//        System.out.println(date);
+//      ArrayList<Sale> salesByDate=saleRepository.findAllBy(date);
+//        for(Sale sale:salesByDate){
+//            System.out.println(sale.getSalesPerson());
+//        }
+//
+//
+//        return "redirect:/chart";
+//    }
 
-    @RequestMapping(value = "/chart", method= RequestMethod.GET)
-    public String chart(Model model,String date) {
-        
+    @RequestMapping(value = "/chart", method = RequestMethod.POST)
+    public String chart(@RequestParam String date, @RequestParam String quarter, Model model) {
+
 //        //first, add the regional sales
 //        Integer northeastSales = 17089;
 //        Integer westSales = 10603;
@@ -92,25 +106,34 @@ public class ChartController {
 //        model.addAttribute("midwestSales", midwestSales);
 //        model.addAttribute("westSales", westSales);
 
-        model.addAttribute("marty",saleRepository.findBySalesPersonAndDate("Marty",date));
-        model.addAttribute("mai",saleRepository.findBySalesPersonAndDate("Mai",date));
-        model.addAttribute("seble",saleRepository.findBySalesPersonAndDate("Seble",date));
-        model.addAttribute("shristi",saleRepository.findBySalesPersonAndDate("Shristi",date));
-        model.addAttribute("rediet",saleRepository.findBySalesPersonAndDate("Rediet",date));
+
+//        model.addAttribute("sales", saleRepository.findByDate(date));
+
+        model.addAttribute("sale1", saleRepository.findBySalesPersonAndDate("Marty", date));
+        model.addAttribute("sale2", saleRepository.findBySalesPersonAndDate("Mai", date));
+        model.addAttribute("sale3", saleRepository.findBySalesPersonAndDate("Seble", date));
+        model.addAttribute("sale4", saleRepository.findBySalesPersonAndDate("Shristi", date));
+        model.addAttribute("sale5", saleRepository.findBySalesPersonAndDate("Rediet", date));
 
         //now add sales by lure type
-        List<Integer> inshoreSales = Arrays.asList(4074, 3455, 4112);
-        List<Integer> nearshoreSales = Arrays.asList(3222, 3011, 3788);
-        List<Integer> offshoreSales = Arrays.asList(7811, 7098, 6455);
 
-        model.addAttribute("inshoreSales", inshoreSales);
-        model.addAttribute("nearshoreSales", nearshoreSales);
-        model.addAttribute("offshoreSales", offshoreSales);
-        
+        List<Integer> martysales = Arrays.asList(4074, 3455, 4112);
+        List<Integer> maisales = Arrays.asList(3222, 3011, 3788);
+        List<Integer> seblesales = Arrays.asList(7811, 7098, 6455);
+        List<Integer> shristisales = Arrays.asList(7811, 7098, 6455);
+        List<Integer> redietsales = Arrays.asList(7811, 7098, 6455);
+
+
+        model.addAttribute("MartySales", martysales);
+        model.addAttribute("MaiSales", maisales);
+        model.addAttribute("SebleSales", seblesales);
+        model.addAttribute("ShristiSales", shristisales);
+        model.addAttribute("RedietSales", redietsales);
+
         return "chart";
     }
-    
-    
+
+
     //redirect to demo if user hits the root
 //    @RequestMapping("/")
 //    public String home(Model model) {
