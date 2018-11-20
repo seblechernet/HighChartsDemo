@@ -63,4 +63,12 @@ public class Sale {
     public void setDate(String date) {
         this.date = date;
     }
+
+    public String getName(){
+        return salesPerson;
+    }
+
+    public Double getY(){
+        return amount;
+    }
 }

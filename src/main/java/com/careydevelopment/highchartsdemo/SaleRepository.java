@@ -9,7 +9,7 @@ import java.util.List;
 public interface SaleRepository extends CrudRepository<Sale,Long>{
 
 Sale findBySalesPersonAndDate(String name,String date);
-Sale findByDate(String date);
+ArrayList<Sale> findAllByDate(String date);
 Sale findBySalesPerson(String name);
 ArrayList<Sale> findAll();
 }

@@ -36,11 +36,14 @@
                     </div>
                 </div>
             </div>
+            <input id="date" th:value="${date}" type="hidden"/>
         </div>
         <div th:include="fragments/homefooter :: footer"></div>
         <script th:inline="javascript">
         /*<![CDATA[*/
-            $(function () { 
+
+
+            $(function () {
                 Highcharts.setOptions({
                     lang: {
                         decimalPoint: '.',
@@ -49,11 +52,19 @@
                 });
 
                 drawSalesByTypeChart();
-				drawSalesByRegionChart();
+                $.ajax({
+                    type: "get",
+                    dataType : 'json',
+                    url: "/chart?date="+ $("#date").val() ,
+                    // data: $("#date").val(), // Note it is important without stringifying
+                    success :function(result) {
+                    drawSalesByRegionChart(result);                    }
+                });
+				// drawSalesByRegionChart();
             });
             
             
-            function drawSalesByRegionChart() {
+            function drawSalesByRegionChart(result) {
                 var salesByRegionChart = Highcharts.chart('salesByRegion', {
                     chart: {
                         type: 'pie',
@@ -79,22 +90,7 @@
                     series: [{
                         name: 'Regions',
                         colorByPoint:true,
-                        data: [{
-                            name: 'Marty',
-                            y: [[${sale1.amount}]]
-                        },{
-                            name: 'Mai',
-                            y: [[${sale2.amount}]]
-                        },{
-                            name: 'Shristi',
-                            y: [[${sale3.amount}]]
-                        },{
-                            name: 'Seble',
-                            y: [[${sale4.amount}]]
-                        },{
-                                name: 'Rediet',
-                                y: [[${sale5.amount}]]
-                            }]
+                        data:result
                 	}]
                 });
             }
@@ -115,7 +111,7 @@
                         text: 'Sales by Lure Type'
                     },
                     xAxis: {
-                        categories: ['Agust', 'September', 'November']
+                        categories: ['August', 'September', 'November']
                     },
                     yAxis: {
                         title: {

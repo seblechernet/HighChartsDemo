@@ -60,7 +60,7 @@ public class ChartController {
             sale.setAmount(amount);
             String date = row.getCell(5).getStringCellValue();
             sale.setDate(date);
-            System.out.println(id + "\t\t\t" + salesPerson + "\t\t\t" + item + "\t\t\t" + quantity + "\t\t\t" + amount + "\t\t\t" + date);
+//            System.out.println(id + "\t\t\t" + salesPerson + "\t\t\t" + item + "\t\t\t" + quantity + "\t\t\t" + amount + "\t\t\t" + date);
             saleRepository.save(sale);
         }
 
@@ -72,9 +72,7 @@ public class ChartController {
 
     @GetMapping("/view")
     public String view(Model model) {
-        for (Sale sale : saleRepository.findAll()) {
-            sale.getDate();
-        }
+
         model.addAttribute("sales", saleRepository.findAll());
 
         return "view";
@@ -91,8 +89,29 @@ public class ChartController {
 //        return "redirect:/chart";
 //    }
 
-    @RequestMapping(value = "/chart", method = RequestMethod.POST)
-    public String chart(@RequestParam String date, @RequestParam String quarter, Model model) {
+    @RequestMapping(value = "/generate", method = RequestMethod.GET)
+    public String chart(@RequestParam String date, Model model,@RequestParam(required = false) String quarter) {
+//        ArrayList<Sale> sales=saleRepository.findAllByDate(date);
+//        String result=toJson(sales);
+//        model.addAttribute("result",result);
+//        List<Integer> martysales = Arrays.asList(4074, 3455, 4112);
+//        List<Integer> maisales = Arrays.asList(3222, 3011, 3788);
+//        List<Integer> seblesales = Arrays.asList(7811, 7098, 6455);
+//        List<Integer> shristisales = Arrays.asList(7811, 7098, 6455);
+//        List<Integer> redietsales = Arrays.asList(7811, 7098, 6455);
+//
+//        model.addAttribute("MartySales", martysales);
+//        model.addAttribute("MaiSales", maisales);
+//        model.addAttribute("SebleSales", seblesales);
+//        model.addAttribute("ShristiSales", shristisales);
+//        model.addAttribute("RedietSales", redietsales);
+        model.addAttribute("date",date);
+
+        return "chart";
+    }
+
+    @RequestMapping(value = "/chart", method = RequestMethod.GET)
+    public @ResponseBody ArrayList<Sale> chart(@RequestParam String date, @RequestParam(required = false) String quarter) {
 
 //        //first, add the regional sales
 //        Integer northeastSales = 17089;
@@ -109,28 +128,16 @@ public class ChartController {
 
 //        model.addAttribute("sales", saleRepository.findByDate(date));
 
-        model.addAttribute("sale1", saleRepository.findBySalesPersonAndDate("Marty", date));
-        model.addAttribute("sale2", saleRepository.findBySalesPersonAndDate("Mai", date));
-        model.addAttribute("sale3", saleRepository.findBySalesPersonAndDate("Seble", date));
-        model.addAttribute("sale4", saleRepository.findBySalesPersonAndDate("Shristi", date));
-        model.addAttribute("sale5", saleRepository.findBySalesPersonAndDate("Rediet", date));
+//        model.addAttribute("sale1", saleRepository.findBySalesPersonAndDate("Marty", date));
+//        model.addAttribute("sale2", saleRepository.findBySalesPersonAndDate("Mai", date));
+//        model.addAttribute("sale3", saleRepository.findBySalesPersonAndDate("Seble", date));
+//        model.addAttribute("sale4", saleRepository.findBySalesPersonAndDate("Shristi", date));
+//        model.addAttribute("sale5", saleRepository.findBySalesPersonAndDate("Rediet", date));
 
         //now add sales by lure type
-
-        List<Integer> martysales = Arrays.asList(4074, 3455, 4112);
-        List<Integer> maisales = Arrays.asList(3222, 3011, 3788);
-        List<Integer> seblesales = Arrays.asList(7811, 7098, 6455);
-        List<Integer> shristisales = Arrays.asList(7811, 7098, 6455);
-        List<Integer> redietsales = Arrays.asList(7811, 7098, 6455);
-
-
-        model.addAttribute("MartySales", martysales);
-        model.addAttribute("MaiSales", maisales);
-        model.addAttribute("SebleSales", seblesales);
-        model.addAttribute("ShristiSales", shristisales);
-        model.addAttribute("RedietSales", redietsales);
-
-        return "chart";
+         ArrayList<Sale> sales=saleRepository.findAllByDate(date);
+//         String result=toJson(sales);
+        return sales;
     }
 
 
