@@ -2,6 +2,7 @@ package com.careydevelopment.highchartsdemo.controller;
 
 import com.careydevelopment.highchartsdemo.Sale;
 import com.careydevelopment.highchartsdemo.SaleRepository;
+import com.careydevelopment.highchartsdemo.SalesPersonRepository;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -23,6 +24,11 @@ public class ChartController {
     @Autowired
     SaleRepository saleRepository;
     private String fileLocation;
+
+    @Autowired
+    SalesPersonRepository salesPersonRepository;
+
+
 
     @GetMapping("/")
     public String upload() {
@@ -51,15 +57,28 @@ public class ChartController {
             long id = (long) row.getCell(0).getNumericCellValue();
             sale.setId(id);
             String salesPerson = row.getCell(1).getStringCellValue();
-            sale.setSalesPerson(salesPerson);
+            sale.setName(salesPerson);
             String item = row.getCell(2).getStringCellValue();
             sale.setItem(item);
             int quantity = (int) row.getCell(3).getNumericCellValue();
             sale.setQuantity(quantity);
             double amount = row.getCell(4).getNumericCellValue();
-            sale.setAmount(amount);
+            sale.setY(amount);
             String date = row.getCell(5).getStringCellValue();
             sale.setDate(date);
+            if (date.equalsIgnoreCase("january") || date.equalsIgnoreCase("february") || date.equalsIgnoreCase("march")) {
+                sale.setQuarter("q1");
+
+            }
+            if (date.equalsIgnoreCase("april") || date.equalsIgnoreCase("may") || date.equalsIgnoreCase("june")) {
+                sale.setQuarter("q2");
+            }
+            if (date.equalsIgnoreCase("july") || date.equalsIgnoreCase("august") || date.equalsIgnoreCase("september")) {
+                sale.setQuarter("q3");
+            }
+            if (date.equalsIgnoreCase("october") || date.equalsIgnoreCase("november") || date.equalsIgnoreCase("december")) {
+                sale.setQuarter("q4");
+            }
 //            System.out.println(id + "\t\t\t" + salesPerson + "\t\t\t" + item + "\t\t\t" + quantity + "\t\t\t" + amount + "\t\t\t" + date);
             saleRepository.save(sale);
         }
@@ -77,73 +96,52 @@ public class ChartController {
 
         return "view";
     }
-//    @PostMapping("/process")
-//    public String view(@RequestParam String date){
-//        System.out.println(date);
-//      ArrayList<Sale> salesByDate=saleRepository.findAllBy(date);
-//        for(Sale sale:salesByDate){
-//            System.out.println(sale.getSalesPerson());
-//        }
-//
-//
-//        return "redirect:/chart";
-//    }
 
     @RequestMapping(value = "/generate", method = RequestMethod.GET)
-    public String chart(@RequestParam String date, Model model,@RequestParam(required = false) String quarter) {
-//        ArrayList<Sale> sales=saleRepository.findAllByDate(date);
-//        String result=toJson(sales);
-//        model.addAttribute("result",result);
-//        List<Integer> martysales = Arrays.asList(4074, 3455, 4112);
-//        List<Integer> maisales = Arrays.asList(3222, 3011, 3788);
-//        List<Integer> seblesales = Arrays.asList(7811, 7098, 6455);
-//        List<Integer> shristisales = Arrays.asList(7811, 7098, 6455);
-//        List<Integer> redietsales = Arrays.asList(7811, 7098, 6455);
-//
-//        model.addAttribute("MartySales", martysales);
-//        model.addAttribute("MaiSales", maisales);
-//        model.addAttribute("SebleSales", seblesales);
-//        model.addAttribute("ShristiSales", shristisales);
-//        model.addAttribute("RedietSales", redietsales);
-        model.addAttribute("date",date);
+    public String generate(@RequestParam String date, Model model, @RequestParam(required = false) String quarter) {
+
+        List<Integer> martysales = Arrays.asList(4074, 3455, 4112);
+        List<Integer> maisales = Arrays.asList(3222, 3011, 3788);
+        List<Integer> seblesales = Arrays.asList(7811, 7098, 6455);
+        List<Integer> shristisales = Arrays.asList(7811, 7098, 6455);
+        List<Integer> redietsales = Arrays.asList(7811, 7098, 6455);
+
+//        model.addAttribute("MartySales",martysales);
+//        model.addAttribute("MaiSales",maisales);
+//        model.addAttribute("SebleSales",martysales);
+//        model.addAttribute("ShristiSales",martysales);
+//        model.addAttribute("RedietSales",martysales);
+////
+
+        model.addAttribute("date", date);
+        model.addAttribute("quarter", quarter);
 
         return "chart";
     }
 
-    @RequestMapping(value = "/chart", method = RequestMethod.GET)
-    public @ResponseBody ArrayList<Sale> chart(@RequestParam String date, @RequestParam(required = false) String quarter) {
-
-//        //first, add the regional sales
-//        Integer northeastSales = 17089;
-//        Integer westSales = 10603;
-//        Integer midwestSales = 5223;
-//        Integer southSales = 10111;
-//        Integer some =1245678;
-//
-//        model.addAttribute("northeastSales", northeastSales);
-//        model.addAttribute("southSales", southSales);
-//        model.addAttribute("midwestSales", midwestSales);
-//        model.addAttribute("westSales", westSales);
+    @RequestMapping(value = "/month", method = RequestMethod.GET)
+    public @ResponseBody
+    ArrayList<Sale> monthlyReport(@RequestParam String date, @RequestParam(required = false) String quarter) {
 
 
-//        model.addAttribute("sales", saleRepository.findByDate(date));
+        ArrayList<Sale> salesByMonth = saleRepository.findAllByDate(date);
 
-//        model.addAttribute("sale1", saleRepository.findBySalesPersonAndDate("Marty", date));
-//        model.addAttribute("sale2", saleRepository.findBySalesPersonAndDate("Mai", date));
-//        model.addAttribute("sale3", saleRepository.findBySalesPersonAndDate("Seble", date));
-//        model.addAttribute("sale4", saleRepository.findBySalesPersonAndDate("Shristi", date));
-//        model.addAttribute("sale5", saleRepository.findBySalesPersonAndDate("Rediet", date));
 
-        //now add sales by lure type
-         ArrayList<Sale> sales=saleRepository.findAllByDate(date);
-//         String result=toJson(sales);
-        return sales;
+        return salesByMonth;
+    }
+
+    @RequestMapping(value = "/quarter", method = RequestMethod.GET)
+    public @ResponseBody
+    ArrayList<Sale> quarterReport(@RequestParam String date, @RequestParam(required = false) String quarter) {
+
+
+        ArrayList<Sale> salesByQuarter = saleRepository.findAllByQuarter(quarter);
+
+
+
+
+        return salesByQuarter;
     }
 
 
-    //redirect to demo if user hits the root
-//    @RequestMapping("/")
-//    public String home(Model model) {
-//        return "redirect:chart";
-//    }
 }

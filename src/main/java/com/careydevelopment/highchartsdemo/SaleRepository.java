@@ -12,4 +12,6 @@ Sale findBySalesPersonAndDate(String name,String date);
 ArrayList<Sale> findAllByDate(String date);
 Sale findBySalesPerson(String name);
 ArrayList<Sale> findAll();
+ArrayList<Sale> findAllByQuarter(String q);
+ArrayList<Sale> findAllByQuarterAndName(String q,String name);
 }

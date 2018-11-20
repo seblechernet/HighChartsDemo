@@ -10,11 +10,14 @@ public class Sale {
     @Id
     @GeneratedValue
     private long id;
-    private String salesPerson;
+    private String name;
     private String item;
     private int quantity;
-    private double amount;
+    private double y;
     private String date;
+    private String quarter;
+
+
 
     public long getId() {
         return id;
@@ -24,13 +27,6 @@ public class Sale {
         this.id = id;
     }
 
-    public String getSalesPerson() {
-        return salesPerson;
-    }
-
-    public void setSalesPerson(String salesPerson) {
-        this.salesPerson = salesPerson;
-    }
 
     public String getItem() {
         return item;
@@ -48,13 +44,6 @@ public class Sale {
         this.quantity = quantity;
     }
 
-    public double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
 
     public String getDate() {
         return date;
@@ -64,11 +53,28 @@ public class Sale {
         this.date = date;
     }
 
-    public String getName(){
-        return salesPerson;
+    public String getName() {
+        return name;
     }
 
-    public Double getY(){
-        return amount;
+    public void setName(String name) {
+        this.name = name;
     }
+
+    public double getY() {
+        return y;
+    }
+
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    public String getQuarter() {
+        return quarter;
+    }
+
+    public void setQuarter(String quarter) {
+        this.quarter = quarter;
+    }
+
 }
