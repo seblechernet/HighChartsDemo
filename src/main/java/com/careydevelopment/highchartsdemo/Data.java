@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.util.HashMap;
+import java.util.HashSet;
 
 @Entity
 public class Data {
@@ -13,6 +14,17 @@ public class Data {
     private long id;
     private String name;
     private Double[] data;
+    private HashSet<String> months;
+
+    public Data() {
+        months=new HashSet<String>();
+    }
+
+    public Data(String name, Double[] data) {
+        this.name = name;
+        this.data = data;
+        months=new HashSet<>();
+    }
 
     public long getId() {
         return id;
@@ -36,5 +48,13 @@ public class Data {
 
     public void setData(Double[] data) {
         this.data = data;
+    }
+
+    public HashSet<String> getMonths() {
+        return months;
+    }
+
+    public void setMonths(HashSet<String> months) {
+        this.months = months;
     }
 }

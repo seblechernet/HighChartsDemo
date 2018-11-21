@@ -144,6 +144,12 @@
     }
 
     function drawChartByQuarterlySale(response) {
+         var theMonths;
+        for (aData in response) {
+            console.log(aData.months);
+            theMonths=aData.months;
+        }
+        console.log(theMonths);
         var salesByTypeChart = Highcharts.chart('salesByType', {
             chart: {
                 type: 'column',
@@ -159,7 +165,7 @@
                 text: 'Sales by Lure Type'
             },
             xAxis: {
-                categories: ['August', 'September', 'November']
+                categories: theMonths
             },
             yAxis: {
                 title: {
@@ -177,6 +183,7 @@
                     groupZPadding: 10
                 }
             },
+
             series: response
 
         });
@@ -184,5 +191,6 @@
 
     /*]]>*/
 </script>
+<h2>This is added</h2>
 </body>
 </html>

@@ -39,8 +39,14 @@ public class ChartController {
         System.out.println(file.getName());
 
 
-        String excelFilepath = file.getOriginalFilename();
-        FileInputStream input = new FileInputStream(new File(excelFilepath));
+        InputStream input = file.getInputStream();
+        File directory = new File(".");
+        String path = directory.getAbsolutePath();
+        fileLocation = path.substring(0,path.length() - 1) + file.getOriginalFilename();
+        FileOutputStream f = new FileOutputStream(new File(fileLocation));
+
+/*        String excelFilepath = file.getOriginalFilename();
+        FileInputStream input = new FileInputStream(new File(excelFilepath));*/
 
         Workbook workbook = new XSSFWorkbook(input);
         Sheet sheet = workbook.getSheetAt(0);
@@ -141,17 +147,24 @@ public class ChartController {
         if (date.equalsIgnoreCase("october") || date.equalsIgnoreCase("november") || date.equalsIgnoreCase("december")) {
             quarter="q4";
         }
+
         ArrayList<Sale> sales = saleRepository.findAllByQuarter(quarter);
+
         HashSet<String> names = new HashSet<>();
+        HashSet<String> months = new HashSet<>();
         ArrayList<Data> dataList = new ArrayList<>();
         for (Sale sale : sales) {
             names.add(sale.getName());
+            months.add(sale.getDate());
         }
+
         for (String name : names) {
             Data data = new Data();
             ArrayList<Sale> salesByName = saleRepository.findAllByQuarterAndName(quarter, name);
             ArrayList<Double> quarterData = new ArrayList<Double>();
             Double[] arr = new Double[3];
+//            ArrayList<String> theMonths = new ArrayList<String>();
+
 
             for (Sale sale : salesByName) {
                 data.setName(name);
@@ -159,11 +172,17 @@ public class ChartController {
                 quarterData.add(amount);
                 arr = quarterData.toArray(arr);
                 data.setData(arr);
+
             }
+            data.setMonths(months);
+
             dataList.add(data);
+
         }
+
         return dataList;
     }
+
 }
 
 
