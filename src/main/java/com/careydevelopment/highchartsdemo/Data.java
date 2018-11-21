@@ -1,17 +1,18 @@
-package com.careydevelopment.highchartsdemo.controller;
+package com.careydevelopment.highchartsdemo;
 
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.HashMap;
 
 @Entity
-public class SalesPerson {
+public class Data {
     @Id
     @GeneratedValue
     private long id;
     private String name;
-    private Double[] quarterSales;
+    private Double[] data;
 
     public long getId() {
         return id;
@@ -29,11 +30,11 @@ public class SalesPerson {
         this.name = name;
     }
 
-    public Double[] getQuarterSales() {
-        return quarterSales;
+    public Double[] getData() {
+        return data;
     }
 
-    public void setQuarterSales(Double[] quarterSales) {
-        this.quarterSales = quarterSales;
+    public void setData(Double[] data) {
+        this.data = data;
     }
 }

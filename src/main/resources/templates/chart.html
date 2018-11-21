@@ -43,7 +43,7 @@
 <div th:include="fragments/homefooter :: footer"></div>
 
 <input id="date" th:value="${date}" type="hidden"/>
-<input id="quarter" th:value="${quarter}" type="hidden"/>
+<!--<input id="quarter" th:value="${quarter}" type="hidden"/>-->
 
 <script th:inline="javascript">
     /*<![CDATA[*/
@@ -55,15 +55,14 @@
                 thousandsSep: ','
             }
         });
-        quartelyReport();
         monthlyReport();
-
+        quartelyReport();
 
     });
     function getSalesByDate(callbackFunction) {
+        console.log("getSalesByDate");
         var obj = new XMLHttpRequest();
-        obj.open("GET", "http://localhost:8090/month?date=" + $("#date").val() );
-        http://localhost:8090/generate?date=august&quarter=q1
+        obj.open("GET", "http://localhost:8090/month?date=" + $("#date").val());
         obj.setRequestHeader("Content-Type", "application/json");
         obj.responseType = 'json';
         obj.send();
@@ -83,12 +82,13 @@
     }
 
     function monthlyReport() {
-        getSalesByDate(drawChartByMonthlySale());
+        getSalesByDate(drawChartByMonthlySale);
 
     }
     function getSalesByQuarter(callbackFunction) {
+        console.log("getSalesByQuarter");
         var obj = new XMLHttpRequest();
-        obj.open("GET", "http://localhost:8090/quarter?quarter="+ $("#quarter"));
+        obj.open("GET", "http://localhost:8090/quarter?date=" + $("#date").val());
         obj.setRequestHeader("Content-Type", "application/json");
         obj.responseType = 'json';
         obj.send();
@@ -108,7 +108,7 @@
     }
 
     function quartelyReport() {
-        getSalesByQuarter(drawChartByQuarterlySale());
+        getSalesByQuarter(drawChartByQuarterlySale);
 
     }
 
@@ -143,7 +143,7 @@
         });
     }
 
-    function drawChartByQuarterlySale() {
+    function drawChartByQuarterlySale(response) {
         var salesByTypeChart = Highcharts.chart('salesByType', {
             chart: {
                 type: 'column',
@@ -177,27 +177,12 @@
                     groupZPadding: 10
                 }
             },
-            series: [{
-                name: 'Marty',
-                data: [[${MartySales}]]
-            }, {
-                name: 'Mai',
-                data: [[${MaiSales}]]
-            }, {
-                name: 'Seble',
-                data: [[${SebleSales}]]
-            }, {
-                name: 'Shristi',
-                data: [[${ShristiSales}]]
-            },
-                {
-                    name: 'Rediet',
-                    data: [[${RedietSales}]]
-                }]
+            series: response
+
         });
     }
 
-    // ]]>
+    /*]]>*/
 </script>
 </body>
 </html>
