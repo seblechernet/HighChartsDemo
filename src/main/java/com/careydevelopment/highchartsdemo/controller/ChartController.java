@@ -4,15 +4,20 @@ import com.careydevelopment.highchartsdemo.Sale;
 import com.careydevelopment.highchartsdemo.SaleRepository;
 import com.careydevelopment.highchartsdemo.Data;
 import com.careydevelopment.highchartsdemo.DataRepository;
+import com.careydevelopment.highchartsdemo.Security.User;
+import com.careydevelopment.highchartsdemo.Security.UserService;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.apache.poi.ss.usermodel.Row;
+
+import javax.validation.Valid;
 import java.io.*;
 import java.util.*;
 
@@ -26,14 +31,39 @@ public class ChartController {
     @Autowired
     DataRepository dataRepository;
 
+    @Autowired
+    private UserService userService;
 
+
+    @GetMapping("/register")
+    public String showRegistrationPage(Model model){
+        model.addAttribute("user", new User());
+        return "registration";
+    }
+    @PostMapping("/register")
+    public String processRegistrationPage(@Valid @ModelAttribute("user") User user, BindingResult result, Model model){
+        model.addAttribute("user", user);
+        if(result.hasErrors())
+        {
+            return "registration"; }
+        else
+        {  userService.saveUser(user);
+            model.addAttribute("message","User Account Created");
+        }
+        return "login"; }
+    @RequestMapping("/login")
+    public String index(){
+        return"login"; }
 
     @GetMapping("/")
-    public String upload() {
+    public String homepage() {
+        return "homepage";
+    }
+    @GetMapping("/uploadExcelFile")
+    public String upload(Model model){
 
         return "fileupload";
     }
-
 
     @PostMapping("/uploadExcelFile")
     public String uploadFile(Model model, @RequestParam MultipartFile file) throws IOException {
