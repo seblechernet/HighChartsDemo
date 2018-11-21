@@ -26,6 +26,8 @@ public class ChartController {
     @Autowired
     DataRepository dataRepository;
 
+
+
     @GetMapping("/")
     public String upload() {
 
@@ -157,29 +159,34 @@ public class ChartController {
             names.add(sale.getName());
             months.add(sale.getDate());
         }
+        String[] monthsArray=new String[3];
+        Iterator<String> it = months.iterator();
+        int i=0;
+        while(it.hasNext()) {
+            monthsArray[i]=it.next();
+            i++;
+        }
 
+        for(int j=0;j<monthsArray.length;j++){
+            System.out.println(monthsArray[j]);
+        }
         for (String name : names) {
             Data data = new Data();
+            data.setMonths(monthsArray);
             ArrayList<Sale> salesByName = saleRepository.findAllByQuarterAndName(quarter, name);
             ArrayList<Double> quarterData = new ArrayList<Double>();
             Double[] arr = new Double[3];
-//            ArrayList<String> theMonths = new ArrayList<String>();
 
-
-            for (Sale sale : salesByName) {
+         for (Sale sale : salesByName) {
                 data.setName(name);
                 Double amount = sale.getY();
                 quarterData.add(amount);
                 arr = quarterData.toArray(arr);
                 data.setData(arr);
-
             }
-            data.setMonths(months);
 
             dataList.add(data);
-
         }
-
         return dataList;
     }
 

@@ -14,17 +14,7 @@ public class Data {
     private long id;
     private String name;
     private Double[] data;
-    private HashSet<String> months;
-
-    public Data() {
-        months=new HashSet<String>();
-    }
-
-    public Data(String name, Double[] data) {
-        this.name = name;
-        this.data = data;
-        months=new HashSet<>();
-    }
+    private String[] months;
 
     public long getId() {
         return id;
@@ -50,11 +40,11 @@ public class Data {
         this.data = data;
     }
 
-    public HashSet<String> getMonths() {
+    public String[] getMonths() {
         return months;
     }
 
-    public void setMonths(HashSet<String> months) {
+    public void setMonths(String[] months) {
         this.months = months;
     }
 }
