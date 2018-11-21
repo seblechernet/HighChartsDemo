@@ -190,8 +190,27 @@
         });
     }
 
+
     /*]]>*/
 </script>
-<h2>This is added</h2>
+<table >
+    <tr>
+        <th>ID</th>
+        <th>Sales Person</th>
+        <th>Item</th>
+        <th>Quantity</th>
+        <th>Amount</th>
+    </tr>
+    <tr th:each="sale : ${sales}">
+        <td th:text="${sale.id}"></td>
+        <td th:text="${sale.name}"></td>
+        <td th:text="${sale.item}"></td>
+        <td th:text="${sale.quantity}"></td>
+        <td th:text="${sale.y}"></td>
+        <td th:text="${sale.date}"></td>
+    </tr>
+</table>
+
+
 </body>
 </html>

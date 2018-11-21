@@ -59,11 +59,11 @@ public class ChartController {
     public String homepage() {
         return "homepage";
     }
-    @GetMapping("/uploadExcelFile")
-    public String upload(Model model){
-
-        return "fileupload";
-    }
+//    @GetMapping("/uploadExcelFile")
+//    public String upload(Model model){
+//
+//        return "fileupload";
+//    }
 
     @PostMapping("/uploadExcelFile")
     public String uploadFile(Model model, @RequestParam MultipartFile file) throws IOException {
@@ -120,41 +120,28 @@ public class ChartController {
         input.close();
         System.out.println("Success import excel to mysql table");
 
-        return "redirect:/view";
+        return "redirect:/";
     }
 
-    @GetMapping("/view")
-    public String view(Model model) {
-
-        model.addAttribute("sales", saleRepository.findAll());
-
-        return "view";
-    }
+//    @GetMapping("/view")
+//    public String view(Model model, String quater) {
+//
+//        model.addAttribute("sales", saleRepository.findAllByQuarter(quater));
+//
+//        return "chart";
+//    }
 
     @RequestMapping(value = "/generate", method = RequestMethod.GET)
     public String generate(@RequestParam String date, Model model) {
-
-//        List<Integer> martysales = Arrays.asList(4074, 3455, 4112);
-//        List<Integer> maisales = Arrays.asList(3222, 3011, 3788);
-//        List<Integer> seblesales = Arrays.asList(7811, 7098, 6455);
-//        List<Integer> shristisales = Arrays.asList(7811, 7098, 6455);
-//        List<Integer> redietsales = Arrays.asList(7811, 7098, 6455);
-//
-//        model.addAttribute("MartySales", martysales);
-//        model.addAttribute("MaiSales", maisales);
-//        model.addAttribute("SebleSales", martysales);
-//        model.addAttribute("ShristiSales", martysales);
-//        model.addAttribute("RedietSales", martysales);
-////
-
+        String quarter=tellQuarterFromDate(date);
         model.addAttribute("date", date);
-
+        model.addAttribute("quarter",quarter);
+        model.addAttribute("sales",saleRepository.findAllByQuarter(quarter));
         return "chart";
     }
 
     @RequestMapping(value = "/month", method = RequestMethod.GET)
-    public @ResponseBody
-    ArrayList<Sale> monthlyReport(@RequestParam String date) {
+    public @ResponseBody ArrayList<Sale> monthlyReport(@RequestParam String date) {
 
 
         ArrayList<Sale> salesByMonth = saleRepository.findAllByDate(date);
@@ -165,21 +152,8 @@ public class ChartController {
 
     @RequestMapping(value = "/quarter", method = RequestMethod.GET)
     public @ResponseBody ArrayList<Data> quarterReport(@RequestParam String date) {
-        String quarter="";
-        if (date.equalsIgnoreCase("january") || date.equalsIgnoreCase("february") || date.equalsIgnoreCase("march")) {
-            quarter="q1";
 
-        }
-        if (date.equalsIgnoreCase("april") || date.equalsIgnoreCase("may") || date.equalsIgnoreCase("june")) {
-            quarter="q2";
-        }
-        if (date.equalsIgnoreCase("july") || date.equalsIgnoreCase("august") || date.equalsIgnoreCase("september")) {
-            quarter="q3";
-        }
-        if (date.equalsIgnoreCase("october") || date.equalsIgnoreCase("november") || date.equalsIgnoreCase("december")) {
-            quarter="q4";
-        }
-
+        String quarter=tellQuarterFromDate(date);
         ArrayList<Sale> sales = saleRepository.findAllByQuarter(quarter);
 
         HashSet<String> names = new HashSet<>();
@@ -219,7 +193,32 @@ public class ChartController {
         }
         return dataList;
     }
+//    @RequestMapping(value = "/view", method = RequestMethod.GET)
+//    public String viewByQuarter(@RequestParam String date,Model model) {
+//        String quarter= tellQuarterFromDate(date);
+//
+//        model.addAttribute("sales",saleRepository.findAllByQuarter(quarter));
+//
+//        return "chart";
+//    }
 
+    public String tellQuarterFromDate(String date){
+        String quarter="";
+        if (date.equalsIgnoreCase("january") || date.equalsIgnoreCase("february") || date.equalsIgnoreCase("march")) {
+            quarter="q1";
+        }
+        if (date.equalsIgnoreCase("april") || date.equalsIgnoreCase("may") || date.equalsIgnoreCase("june")) {
+            quarter="q2";
+        }
+        if (date.equalsIgnoreCase("july") || date.equalsIgnoreCase("august") || date.equalsIgnoreCase("september")) {
+            quarter="q3";
+        }
+        if (date.equalsIgnoreCase("october") || date.equalsIgnoreCase("november") || date.equalsIgnoreCase("december")) {
+            quarter="q4";
+        }
+
+        return quarter;
+    }
 }
 
 
