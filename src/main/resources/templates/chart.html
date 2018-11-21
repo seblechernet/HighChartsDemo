@@ -9,11 +9,48 @@
 <!--<![endif]-->
 
 <head>
-    <title>HighCharts Demo | Carey Development Demos</title>
+    <title>Aries Final Project| Data Visualization</title>
     <meta content="This demo shows how to use HighCharts with Spring Boot" name="description"/>
     <object th:include="fragments/head :: head" th:remove="tag"></object>
 
     <link th:href="@{/assets/pages/css/profile.min.css}" rel="stylesheet" type="text/css"/>
+
+    <style>
+        table.scroll {
+            width: 100%;
+           /*border-collapse: collapse;*/
+            border-spacing: 50px;
+            border: 2px solid black;
+            padding-left: 20px;
+        }
+
+        table.scroll tbody,
+        table.scroll thead { display: block; }
+
+        thead tr th {
+            height: 30px;
+            line-height: 100px;
+            text-align: left;
+        }
+
+        table.scroll tbody {
+            height: 100px;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        tbody { border-top: 2px solid black; }
+
+        tbody td, thead th {
+            /* width: 20%; */ /* Optional */
+            border-right: 1px solid black;
+            /* white-space: nowrap; */
+        }
+
+        tbody td:last-child, thead th:last-child {
+            border-right: none;
+        }
+    </style>
 </head>
 
 <body class="page-container-bg-solid">
@@ -124,7 +161,7 @@
                 }
             },
             title: {
-                text: 'Sales by Region'
+                text: 'Monthly Sales'
             },
             tooltip: {
                 pointFormat: "${point.y:,.0f}"
@@ -163,7 +200,7 @@
                 }
             },
             title: {
-                text: 'Sales by Lure Type'
+                text: 'Quarterly Sales'
             },
             xAxis: {
                 categories: months
@@ -189,11 +226,11 @@
 
         });
     }
-
-
     /*]]>*/
 </script>
-<table >
+
+<table class="scroll">
+    <thead>
     <tr>
         <th>ID</th>
         <th>Sales Person</th>
@@ -201,6 +238,8 @@
         <th>Quantity</th>
         <th>Amount</th>
     </tr>
+    </thead>
+    <tbody>
     <tr th:each="sale : ${sales}">
         <td th:text="${sale.id}"></td>
         <td th:text="${sale.name}"></td>
@@ -209,6 +248,7 @@
         <td th:text="${sale.y}"></td>
         <td th:text="${sale.date}"></td>
     </tr>
+    </tbody>
 </table>
 
 
