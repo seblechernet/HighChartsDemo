@@ -1,54 +1,140 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <th:block th:replace="base :: headstuff"></th:block>
-    <title>Title</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
+        body {
+            margin: 0;
+        }
+
+        /* Style the header */
+        .header {
+            background-color: #3598dc;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Style the top navigation bar */
+        .topnav {
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        /* Style the topnav links */
+        .topnav a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        /* Change color on hover */
+        .topnav a:hover {
+            background-color: #333;
+            color: white;
+        }
+
+        /* Create three unequal columns that floats next to each other */
+        .column {
+            float: left;
+            padding: 10px;
+        }
+
+        /* Left and right column */
+        .column.side {
+            width: 25%;
+        }
+
+        /* Middle column */
+        .column.middle {
+            width: 50%;
+        }
+
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+        @media screen and (max-width: 600px) {
+            .column.side, .column.middle {
+                width: 100%;
+            }
+        }
+    </style>
+    <title>Title</title>
 </head>
 
 <body>
+<div class="header">
+    <h1>Aries Group - Final Project</h1>
+    <h2>Data Visualization</h2>
+    <h3>Empower Businesses to see and understand through visualization</h3>
+</div>
+
+    <div class="topnav">
 <div th:replace="base :: navlinks"></div>
-<div class="container">
-    <div class="jumbotron">
-
-        <h1>Aries Group - Final Project</h1>
-        <h2>"Data Visualization"</h2>
-        <h2><i>Empower Businesses to see and understand through visualization</i></h2>
-        <a href="/login" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Login</a>
-        <a href="/register" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Registration</a>
-
     </div>
-</div>
-<div sec:authorize="isAuthenticated()">
-    <!--<a href="/uploadExcelFile">Upload your Excel File </a>-->
-    <form method="post" enctype="multipart/form-data"
-          th:action="@{/uploadExcelFile}">
-        <input type="file" name="file" accept=".xls,.xlsx"/>
-        <input type="submit" value="Upload file"/>
-    </form>
 
-    <form
-            th:action="@{/generate}"
-            method="get"
-    >
-        <select id="date" name="date">
-            <option th:value="may">May</option>
-            <option th:value="june">June</option>
-            <option th:value="july">July</option>
-            <option th:value="august">August</option>
-            <option th:value="september">September</option>
-            <option th:value="october">October</option>
-            <option th:value="november">November</option>
-            <option th:value="december">December</option>
-            <option th:value="january">January</option>
-            <option th:value="february">February</option>
-            <option th:value="march">March</option>
-            <option th:value="april">April</option>
-        </select>
 
-        <input type="submit" value="Generate Chart" />
+        <div class="row">
+            <div class="column side">
+                <div sec:authorize="isAuthenticated()">
+                    <h4>Step 1:</h4>
+                        <h5> Make sure you are uploading as the below picture.</h5>
+                    <!--<a href="/uploadExcelFile">Upload your Excel File </a>-->
 
-    </form>
-</div>
+                </div>
+            </div>
+                <div class="column middle">
+            <div sec:authorize="isAuthenticated()">
+                <h4>Step 2:</h4>
+                <h5>After you are done formatting, you can now upload the file!</h5>
+            <form method="post" enctype="multipart/form-data"
+                  th:action="@{/uploadExcelFile}">
+                <input type="file" name="file" accept=".xls,.xlsx"/><br />
+                <input type="submit" value="Upload file"/>
+            </form>
+            </div>
+        </div>
+
+        <div class="column side">
+            <div sec:authorize="isAuthenticated()">
+                <h4>Step 3:</h4>
+                <h5>Choose the month you want to generate Charts.</h5>
+                <form th:action="@{/generate}"
+                        method="get">
+                    <select id="date" name="date">
+                        <option th:value="may">May</option>
+                        <option th:value="june">June</option>
+                        <option th:value="july">July</option>
+                        <option th:value="august">August</option>
+                        <option th:value="september">September</option>
+                        <option th:value="october">October</option>
+                        <option th:value="november">November</option>
+                        <option th:value="december">December</option>
+                        <option th:value="january">January</option>
+                        <option th:value="february">February</option>
+                        <option th:value="march">March</option>
+                        <option th:value="april">April</option>
+                    </select>
+                    <br />
+                    <input type="submit" value="Generate Chart" /><br />
+                </form>
+            </div>
+        </div>
+    </div>
+
+<div th:include="fragments/homefooter :: footer"></div>
+
 </body>
 </html>

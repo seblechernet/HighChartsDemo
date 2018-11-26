@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <title>Title</title>
     <object th:include="fragments/head :: head" th:remove="tag"></object>
-
+    <th:block th:replace="base :: headstuff"></th:block>
     <link th:href="@{/assets/pages/css/profile.min.css}" rel="stylesheet" type="text/css" />
     <style>
         table,td{
