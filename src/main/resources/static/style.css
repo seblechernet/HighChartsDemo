@@ -1,0 +1,10 @@
+container {
+    margin-top: 100px;
+
+}
+body{
+    background-image: url("/static/images/background.jpg");
+    background-size: 100%;
+
+            /*1350px;*/
+}

@@ -122,7 +122,11 @@ public class ChartController {
 
         return "redirect:/";
     }
+@GetMapping("/download")
+public String showDownload(){
 
+        return "redirect:/downloads/template.xlsx";
+}
 //    @GetMapping("/view")
 //    public String view(Model model, String quater) {
 //
@@ -141,7 +145,8 @@ public class ChartController {
     }
 
     @RequestMapping(value = "/month", method = RequestMethod.GET)
-    public @ResponseBody ArrayList<Sale> monthlyReport(@RequestParam String date) {
+    public @ResponseBody
+    ArrayList<Sale> monthlyReport(@RequestParam String date) {
 
 
         ArrayList<Sale> salesByMonth = saleRepository.findAllByDate(date);
@@ -155,9 +160,8 @@ public class ChartController {
 
         String quarter=tellQuarterFromDate(date);
         ArrayList<Sale> sales = saleRepository.findAllByQuarter(quarter);
-
         HashSet<String> names = new HashSet<>();
-        HashSet<String> months = new HashSet<>();
+        LinkedHashSet<String> months = new LinkedHashSet<>();
         ArrayList<Data> dataList = new ArrayList<>();
         for (Sale sale : sales) {
             names.add(sale.getName());

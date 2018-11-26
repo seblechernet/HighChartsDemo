@@ -3,7 +3,29 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <th:block th:replace="base :: headstuff"></th:block>
+    <link rel ="stylesheet" href="/style.css"/>
+
     <style>
+        h2,h3,h4{
+            text-align: center;
+        }
+        h5{
+            color: #0d638f;
+        }
+        h6{
+            color: #0c91e5;
+        }
+         input[type=submit], input[type=file]{
+            background-color: #0d638f;
+            border: none;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
         * {
             box-sizing: border-box;
         }
@@ -13,11 +35,11 @@
         }
 
         /* Style the header */
-        .header {
-            background-color: #3598dc;
-            padding: 20px;
-            text-align: center;
-        }
+        /*.header {*/
+            /*background-color: #e9edef;*/
+            /*padding: 20px;*/
+            /*text-align: left;*/
+        /*}*/
 
         /* Style the top navigation bar */
         .topnav {
@@ -44,73 +66,113 @@
         /* Create three unequal columns that floats next to each other */
         .column {
             float: left;
-            padding: 10px;
+            width: 33.33%;
+            padding: 15px;
         }
 
         /* Left and right column */
-        .column.side {
-            width: 25%;
-        }
-
-        /* Middle column */
-        .column.middle {
-            width: 50%;
-        }
-
-        /* Clear floats after the columns */
         .row:after {
             content: "";
             display: table;
             clear: both;
         }
-
         /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
-        @media screen and (max-width: 600px) {
-            .column.side, .column.middle {
+        @media screen and (max-width:600px) {
+            .column {
                 width: 100%;
             }
         }
+        .filedrag
+        {
+            display: none;
+            font-weight: bold;
+            text-align: center;
+            padding: 1em 0;
+            margin: 1em 0;
+            color: #555;
+            border: 2px dashed #555;
+            border-radius: 7px;
+            cursor: default;
+        }
+
+        .filedrag.hover
+        {
+            color: #f00;
+            border-color: #f00;
+            border-style: solid;
+            box-shadow: inset 0 3px 4px #888;
+        }
     </style>
-    <title>Title</title>
+    <!--<title>Title</title>-->
 </head>
 
 <body>
-<div class="header">
-    <h1>Aries Group - Final Project</h1>
-    <h2>Data Visualization</h2>
-    <h3>Empower Businesses to see and understand through visualization</h3>
-</div>
+<!--<div class="header">-->
+    <!--<img th:src="@{/images/Aries.png}" alt="logo" align="top-left"/>-->
+    <!--<h1>Aries Group - Final Project</h1>-->
+    <!--<h2>Data Visualization</h2>-->
+    <!--<h3>Empower Businesses to see and understand through visualization</h3>-->
+<!--</div>-->
 
     <div class="topnav">
 <div th:replace="base :: navlinks"></div>
     </div>
 
+<div class = "container">
+    <div class = "jumbotron">
+        <h2>Aries Group - Final Project</h2>
+        <h3>Data Visualization</h3>
+        <h4>Empower Businesses to see and understand through visualization</h4>
+    </div>
+</div>
+
 
         <div class="row">
-            <div class="column side">
+            <div class="column">
                 <div sec:authorize="isAuthenticated()">
-                    <h4>Step 1:</h4>
-                        <h5> Make sure you are uploading as the below picture.</h5>
+                    <h5>Step 1:</h5>
+                    <h6>Click the below link to get template of the file</h6>
+                    <h6> <a href="/download">Click here to Download </a></h6>
                     <!--<a href="/uploadExcelFile">Upload your Excel File </a>-->
-
                 </div>
             </div>
-                <div class="column middle">
+                <div class="column">
             <div sec:authorize="isAuthenticated()">
-                <h4>Step 2:</h4>
-                <h5>After you are done formatting, you can now upload the file!</h5>
-            <form method="post" enctype="multipart/form-data"
-                  th:action="@{/uploadExcelFile}">
-                <input type="file" name="file" accept=".xls,.xlsx"/><br />
-                <input type="submit" value="Upload file"/>
-            </form>
+                <h5>Step 2:</h5>
+                <h6>After you are done formatting, you can now upload the file!</h6>
+            <!--<form method="post" enctype="multipart/form-data"-->
+                  <!--th:action="@{/uploadExcelFile}">-->
+                <!--<input type="file" id=name="file" accept=".xls,.xlsx" /><br />-->
+              <!--<input type="submit" value="Upload file" />-->
+            <!--</form>-->
+                <form id="upload" th:action="@{/uploadExcelFile}" method="POST" enctype="multipart/form-data">
+
+                    <fieldset>
+
+                        <input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="300000" />
+
+                        <div>
+
+                            <input type="file"  name="file" accept=".xls,.xlsx" /><br />
+                            <!--<input type="file" id="fileselect" name="fileselect[]" multiple="multiple" />-->
+                            <div class="filedrag">or drop files here</div>
+                        </div>
+
+                        <div id="submitbutton">
+                            <button type="submit">Upload Files</button>
+                        </div>
+
+                    </fieldset>
+
+                </form>
+
             </div>
         </div>
 
-        <div class="column side">
+        <div class="column">
             <div sec:authorize="isAuthenticated()">
-                <h4>Step 3:</h4>
-                <h5>Choose the month you want to generate Charts.</h5>
+                <h5>Step 3:</h5>
+                <h6>Choose the month you want to generate Charts.</h6>
                 <form th:action="@{/generate}"
                         method="get">
                     <select id="date" name="date">
@@ -128,7 +190,7 @@
                         <option th:value="april">April</option>
                     </select>
                     <br />
-                    <input type="submit" value="Generate Chart" /><br />
+                    <input type = "submit" value="Generate Chart" /><br />
                 </form>
             </div>
         </div>
