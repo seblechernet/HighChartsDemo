@@ -40,5 +40,7 @@ input[type=password], select {
     box-sizing: border-box;
 }
 body{
-    background-color: #3d4a55;
+    /*background-color: #3d4a55;*/
+    background-image: url("https://images.unsplash.com/photo-1487260211189-670c54da558d?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=577284347244271d769381e53f2716be&auto=format&fit=crop&w=634&q=80");
+
 }

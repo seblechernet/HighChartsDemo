@@ -1,0 +1,104 @@
+
+h2,h3,h4{
+    text-align: center;
+}
+h5{
+    color: #FFA500;
+}
+h6{
+    color: #FFA500;
+}
+body{
+    /*background-color: #3d4a55;*/
+    background-image: url("https://images.unsplash.com/photo-1487260211189-670c54da558d?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=577284347244271d769381e53f2716be&auto=format&fit=crop&w=634&q=80");
+}
+
+}
+
+input[type=submit], input[type=file]{
+    background-color: #ff6666;
+    border: none;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+/* Style the header */
+/*.header {*/
+/*background-color: #e9edef;*/
+/*padding: 20px;*/
+/*text-align: left;*/
+/*}*/
+
+/* Style the top navigation bar */
+.topnav {
+    overflow: hidden;
+    background-color: #333;
+}
+
+/* Style the topnav links */
+.topnav a {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* Change color on hover */
+.topnav a:hover {
+    background-color: #333;
+    color: white;
+}
+
+/* Create three unequal columns that floats next to each other */
+.column {
+    float: left;
+    width: 33.33%;
+    padding: 15px;
+}
+
+/* Left and right column */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media screen and (max-width:600px) {
+    .column {
+        width: 100%;
+    }
+}
+.filedrag
+{
+    display: none;
+    font-weight: bold;
+    text-align: center;
+    padding: 1em 0;
+    margin: 1em 0;
+    color: #555;
+    border: 2px dashed #555;
+    border-radius: 7px;
+    cursor: default;
+}
+
+.filedrag.hover
+{
+    color: #f00;
+    border-color: #f00;
+    border-style: solid;
+    box-shadow: inset 0 3px 4px #888;
+}

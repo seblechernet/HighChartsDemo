@@ -56,7 +56,13 @@ public class ChartController {
         return"login"; }
 
     @GetMapping("/")
-    public String homepage() {
+    public String homepage(Model model) {
+
+        LinkedHashSet<String> months = new LinkedHashSet<>();
+        for (Sale sale : saleRepository.findAll()) {
+            months.add(sale.getDate());
+        }
+        model.addAttribute("months",months);
         return "homepage";
     }
 //    @GetMapping("/uploadExcelFile")
@@ -82,6 +88,7 @@ public class ChartController {
 
         Workbook workbook = new XSSFWorkbook(input);
         Sheet sheet = workbook.getSheetAt(0);
+        saleRepository.deleteAll();
 
         Row row;
         for (int i = 1; i <= sheet.getLastRowNum(); i++) {
@@ -141,6 +148,12 @@ public String showDownload(){
         model.addAttribute("date", date);
         model.addAttribute("quarter",quarter);
         model.addAttribute("sales",saleRepository.findAllByQuarter(quarter));
+        LinkedHashSet<String> months = new LinkedHashSet<>();
+        for (Sale sale : saleRepository.findAll()) {
+
+            months.add(sale.getDate());
+        }
+        model.addAttribute("months",months);
         return "chart";
     }
 
