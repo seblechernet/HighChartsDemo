@@ -549,7 +549,7 @@
       <workItem from="1542904486815" duration="8758000" />
       <workItem from="1543241491779" duration="24775000" />
       <workItem from="1543281081621" duration="8474000" />
-      <workItem from="1543332703372" duration="12143000" />
+      <workItem from="1543332703372" duration="12278000" />
     </task>
     <task id="LOCAL-00001" summary="Pie chart with limited number of sales works and the bar chart works only for hard coded data.">
       <created>1542664195688</created>
@@ -583,7 +583,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="128291000" />
+    <option name="totallyTimeSpent" value="128426000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
