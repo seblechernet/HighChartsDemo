@@ -7,3 +7,6 @@ java -jar HighChartsDemo-1.0.jar
 Alternatively, you can run it within Eclipse by right-clicking on Application and selecting Run As... Java Application.
 
 Once the application is launched, you can access it at http://localhost:8090/
+
+
+Heroku Link -https://serene-gorge-20008.herokuapp.com/

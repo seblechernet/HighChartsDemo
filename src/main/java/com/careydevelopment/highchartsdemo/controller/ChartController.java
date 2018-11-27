@@ -158,8 +158,7 @@ public String showDownload(){
     }
 
     @RequestMapping(value = "/month", method = RequestMethod.GET)
-    public @ResponseBody
-    ArrayList<Sale> monthlyReport(@RequestParam String date) {
+    public @ResponseBody ArrayList<Sale> monthlyReport(@RequestParam String date) {
 
 
         ArrayList<Sale> salesByMonth = saleRepository.findAllByDate(date);
@@ -173,9 +172,11 @@ public String showDownload(){
 
         String quarter=tellQuarterFromDate(date);
         ArrayList<Sale> sales = saleRepository.findAllByQuarter(quarter);
+
         HashSet<String> names = new HashSet<>();
         LinkedHashSet<String> months = new LinkedHashSet<>();
         ArrayList<Data> dataList = new ArrayList<>();
+
         for (Sale sale : sales) {
             names.add(sale.getName());
             months.add(sale.getDate());
@@ -191,6 +192,8 @@ public String showDownload(){
         for(int j=0;j<monthsArray.length;j++){
             System.out.println(monthsArray[j]);
         }
+
+
         for (String name : names) {
             Data data = new Data();
             data.setMonths(monthsArray);
