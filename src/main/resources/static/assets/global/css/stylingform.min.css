@@ -39,3 +39,6 @@ input[type=password], select {
     border-radius: 4px;
     box-sizing: border-box;
 }
+body{
+    background-color: #3d4a55;
+}

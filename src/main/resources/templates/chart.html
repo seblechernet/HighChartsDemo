@@ -12,7 +12,7 @@
     <title>Aries Final Project| Data Visualization</title>
     <meta content="This demo shows how to use HighCharts with Spring Boot" name="description"/>
     <object th:include="fragments/head :: head" th:remove="tag"></object>
-
+    <th:block th:replace="base :: headstuff"></th:block>
     <link th:href="@{/assets/pages/css/profile.min.css}" rel="stylesheet" type="text/css"/>
 
     <style>
@@ -65,6 +65,9 @@
 </head>
 
 <body class="page-container-bg-solid">
+<div class="topnav">
+    <div th:replace="base :: navlinks"></div>
+</div>
 <div th:include="fragments/topmenuheader :: header"></div>
 <div class="page-container">
     <div class="page-content-wrapper">

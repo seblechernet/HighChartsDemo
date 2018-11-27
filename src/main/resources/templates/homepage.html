@@ -15,6 +15,10 @@
         h6{
             color: #FFA500;
         }
+        body{
+            background-color: #3d4a55;
+        }
+
          input[type=submit], input[type=file]{
             background-color: #ff6666;
             border: none;
@@ -176,18 +180,18 @@
                 <form th:action="@{/generate}"
                         method="get">
                     <select id="date" name="date">
-                        <option th:value="may">May</option>
-                        <option th:value="june">June</option>
-                        <option th:value="july">July</option>
-                        <option th:value="august">August</option>
-                        <option th:value="september">September</option>
-                        <option th:value="october">October</option>
-                        <option th:value="november">November</option>
-                        <option th:value="december">December</option>
-                        <option th:value="january">January</option>
-                        <option th:value="february">February</option>
-                        <option th:value="march">March</option>
-                        <option th:value="april">April</option>
+                        <option th:value="May">May</option>
+                        <option th:value="June">June</option>
+                        <option th:value="July">July</option>
+                        <option th:value="August">August</option>
+                        <option th:value="September">September</option>
+                        <option th:value="October">October</option>
+                        <option th:value="November">November</option>
+                        <option th:value="December">December</option>
+                        <option th:value="January">January</option>
+                        <option th:value="February">February</option>
+                        <option th:value="March">March</option>
+                        <option th:value="April">April</option>
                     </select>
                     <br />
                     <input type = "submit" value="Generate Chart" /><br />
