@@ -90,15 +90,16 @@ tr:hover {background-color:#f5f5f5;}
      /*position: relative;*/
  /*}*/
 
-div.relative {
-    position: absolute;
-    top: 8%;
-    left: 5%;
-    width: 10%;
-    height: 20%;
-    border: 3px solid darkturquoise;
+    div.relative {
+        position: absolute;
+        top: 8%;
+        left: 5%;
+        width: 10%;
+        height: 20%;
+        border: 3px solid darkturquoise;
 
-}
+    }
+
 /*#table-wrapper {*/
     /*position:relative;*/
 /*}*/

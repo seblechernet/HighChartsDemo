@@ -23,9 +23,10 @@
 
 <div class = "container">
     <div class = "jumbotron">
-        <h2>Aries Group - Final Project</h2>
-        <h3>Data Visualization</h3>
-        <h4>Empower Businesses to see and understand through visualization</h4>
+        <h2>Data Visualization</h2>
+        <h4>Making data more understandable, see trends and outliers</h4>
+        <h4>Empower Businesses to make data-driven decisions</h4>
+        <h4>Aries Group - Final Project</h4>
     </div>
 </div>
 
@@ -33,16 +34,16 @@
         <div class="row">
             <div class="column">
                 <div sec:authorize="isAuthenticated()">
-                    <h5>Step 1:</h5>
-                    <h6>Click the link below to download the template of Excel file. Make sure the file is formatted accordingly.</h6>
+                    <h5><strong>Step 1:</strong></h5>
+                    <h6>Click link below to download Excel formatted template. </h6>
                     <h6> <a href="/download">Click here </a></h6>
                     <!--<a href="/uploadExcelFile">Upload your Excel File </a>-->
                 </div>
             </div>
                 <div class="column">
             <div sec:authorize="isAuthenticated()">
-                <h5>Step 2:</h5>
-                <h6>After you are done formatting, you can now upload the file!</h6>
+                <h5><strong>Step 2:</strong></h5>
+                <h6>Upload completed file!</h6>
             <!--<form method="post" enctype="multipart/form-data"-->
                   <!--th:action="@{/uploadExcelFile}">-->
                 <!--<input type="file" id=name="file" accept=".xls,.xlsx" /><br />-->
@@ -74,8 +75,8 @@
 
         <div class="column">
             <div sec:authorize="isAuthenticated()">
-                <h5>Step 3:</h5>
-                <h6>Choose the month you want to generate Charts.</h6>
+                <h5><strong>Step 3:</strong></h5>
+                <h6>Select month to generate Charts.</h6>
                 <form action="#" th:action="@{/generate}"
                              method="get">
                 <select id="date" name="date">
