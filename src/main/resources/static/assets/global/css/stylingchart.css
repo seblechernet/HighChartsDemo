@@ -31,7 +31,7 @@ thead tr th {
 }
 
 table.scroll tbody {
-    height: 100px;
+    height: 250px;
     width: 100%;
     overflow-y: auto;
     overflow-x: hidden;
