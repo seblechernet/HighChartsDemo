@@ -1,27 +1,41 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="UTF-8" />
-    <title>Title</title>
-    <th:block th:replace="base :: headstuff"></th:block>
-    <link rel="stylesheet" th:href="@{assets/global/css/stylingform.min.css}" type="text/css"/>
+    <title>Login</title>
 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
 </head>
 <body>
-           <div class="container">
-               <h4>Login Page</h4>
-            <form th:action="@{/login}"  method="post">
+<div th:replace="base :: menubar"></div>
 
-                <label for="username">User name: </label>
-                <input type="text" id="username" placeholder="Username" name="username"/><br />
+<div class="container bg-light">
 
-                <label for="password">Password: </label>
-                <input type="password" id="password" placeholder="password" name="password"/><br />
+    <div th:if="${param.error}" class="alert alert-danger" role="alert">
+        Invalid username or password
+    </div>
+    <div th:if="${param.logout}" class="alert alert-info" role="alert">
+        You have been logged out
+    </div>
 
-                <button type="submit" class="btn btn-default">Sign in</button>
-                <button type="submit" class="btn btn-default"  href="/register"> Register Now!</button>
-            </form>
-           </div>
+    <form th:action="@{/login}" method="post">
+        <div class="form-group">
+            <label for="inputPassword">User name:</label>
+            <input type="text" name="username" class="form-control" id="inputUsername" placeholder="User name" />
+        </div>
+
+        <div class="form-group">
+            <label for="inputPassword">Password:</label>
+            <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password" />
+        </div>
+
+        <hr/>
+
+        <button type="submit" class="btn btn-primary">Sign In</button>
+    </form>
+</div>
 
 </body>
 </html>

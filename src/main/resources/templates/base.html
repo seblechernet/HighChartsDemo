@@ -56,29 +56,69 @@
     </style>
     </th:block>
 
+<!--</head>-->
+<!--<body>-->
+
+<!--<div th:fragment ="navlinks">-->
+   <!--<ul>-->
+        <!--<li><a href = "/">Welcome!</a></li>-->
+       <!--<li><a href="/">Home</a></li>-->
+
+        <!--<div sec:authorize ="!isAuthenticated()">-->
+            <!--<li style ="float:right"><a class="active" href="/login">Login </a></li></div>-->
+
+
+        <!--<div sec:authorize ="!isAuthenticated()">-->
+            <!--<li style ="float:right"><a class="active" href="/register"> Register</a></li></div>-->
+
+        <!--<div sec:authorize ="isAuthenticated()">-->
+            <!--<li style ="float:right"><a class="active" href = "/">Welcome <span th:text="${#authentication.name}">!</span></a></li>-->
+            <!--<li style ="float:right"><a class="active" href="/logout">logout </a></li>-->
+            <!--&lt;!&ndash;<li style ="float:right"><a class="active" href="/uploadExcelFile">Upload your Excel File </a></li> &ndash;&gt;-->
+        <!--</div>-->
+   <!--</ul>-->
+<!--</div>-->
+
+<!--</body>-->
+<!--</html>-->
+
 </head>
 <body>
+<div th:fragment="navlinks">
+       <a href="/login">login</a>
+    </div>
 
-<div th:fragment ="navlinks">
-   <ul>
-        <li><a href = "/">Welcome!</a></li>
-       <li><a href="/">Home</a></li>
+<div th:fragment="menubar">
+    <nav class="navbar navbar navbar-expand-lg navbar-light bg-dark">
 
-        <div sec:authorize ="!isAuthenticated()">
-            <li style ="float:right"><a class="active" href="/login">Login </a></li></div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-
-        <div sec:authorize ="!isAuthenticated()">
-            <li style ="float:right"><a class="active" href="/register"> Register</a></li></div>
-
-        <div sec:authorize ="isAuthenticated()">
-            <li style ="float:right"><a class="active" href = "/">Welcome <span th:text="${#authentication.name}">!</span></a></li>
-            <li style ="float:right"><a class="active" href="/logout">logout </a></li>
-            <!--<li style ="float:right"><a class="active" href="/uploadExcelFile">Upload your Excel File </a></li> -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="nav navbar-nav ml-auto">
+                <li sec:authorize="isAuthenticated()" class="nav-item text-light">
+                    <a class="btn btn-secondary" th:href="@{/updateProfile}">
+                        Welcome <span th:text="${#authentication.name}"></span></a>
+                </li>
+                <li class="nav-item text-light active">
+                    <a class="nav-link text-white" href="/">Home</a>
+                </li>
+                <li sec:authorize="isAnonymous()" class="nav-item text-light">
+                    <a class="nav-link text-white" href="/login">Login</a>
+                </li>
+                <li sec:authorize="isAnonymous()" class="nav-item text-light">
+                    <a class="nav-link text-white" href="/register">Register</a>
+                </li>
+                                <li sec:authorize="isAuthenticated()" class="nav-item text-light">
+                    <a class="nav-link text-white" href="/logout">Logout</a>
+                </li>
+            </ul>
         </div>
-   </ul>
+    </nav>
 </div>
+
 
 </body>
 </html>
-

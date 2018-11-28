@@ -41,6 +41,34 @@ input[type=password], select {
 }
 body{
     /*background-color: #3d4a55;*/
-    background-image: url("https://images.unsplash.com/photo-1487260211189-670c54da558d?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=577284347244271d769381e53f2716be&auto=format&fit=crop&w=634&q=80");
+    background-image: url("https://images.unsplash.com/photo-1473113092853-545c00642b82?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=bc43175e5c2a03bed89935ee5fa07dc1&auto=format&fit=crop&w=334&q=80");
 
+}
+.topnav {
+    overflow: hidden;
+    background-color: #333;
+}
+
+/* Style the topnav links */
+.topnav a {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* Change color on hover */
+.topnav a:hover {
+    background-color: #333;
+    color: white;
+}
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #333;
+    text-align: center;
 }

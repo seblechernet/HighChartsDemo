@@ -21,7 +21,7 @@
 
 <body class="page-container-bg-solid">
 <div class="topnav">
-    <div th:replace="base :: navlinks"></div>
+    <div th:replace="base :: menubar"></div>
 </div>
 <!--<div th:include="fragments/topmenuheader :: header"></div>-->
 <div class="page-container">
@@ -46,7 +46,7 @@
     </div>
 
 </div>
-<div class="relative">
+<!--<div class="relative">-->
 <div class = "container">
     <div class = "jumbotron">
     <!--<table class="table" align="center">-->
@@ -58,7 +58,7 @@
         <table class="scroll">
     <thead>
     <tr>
-        <th>ID</th>
+        <th>Id</th>
         <th>Sales Person</th>
         <th>Item</th>
         <th>Quantity</th>
@@ -84,8 +84,8 @@
     <!--</table>-->
 </div>
 </div>
-</div>
-    <div class="absolute">
+<!--</div>-->
+    <div class="relative">
 <h6>Choose new month to generate Charts.</h6>
         <form action="#" th:action="@{/generate}"
               method="get">
@@ -97,7 +97,7 @@
             <input type = "submit" value="Generate Chart" /><br />
         </form>
 </div>
-<div class = "footer">
+<div class="footer">
 <div th:include="fragments/homefooter :: footer"></div>
 </div>
 <input id="date" th:value="${date}" type="hidden"/>
