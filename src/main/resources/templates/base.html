@@ -74,16 +74,15 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="nav navbar-nav ml-auto">
                 <li sec:authorize="isAuthenticated()" class="nav-item text-light">
-                    <a class="btn btn-secondary" th:href="@{/updateProfile}">
-                        Welcome <span th:text="${#authentication.name}"></span></a>
+                    Welcome<span class="nav-link text-white" th:text="${#authentication.name}"></span>
                 </li>
                 <li class="nav-item text-light active">
                     <a class="nav-link text-white" href="/">Home</a>
                 </li>
-                <li sec:authorize="isAnonymous()" class="nav-item text-light">
+                <li sec:authorize="!isAuthenticated()" class="nav-item text-light">
                     <a class="nav-link text-white" href="/login">Login</a>
                 </li>
-                <li sec:authorize="isAnonymous()" class="nav-item text-light">
+                <li sec:authorize="!isAuthenticated()" class="nav-item text-light">
                     <a class="nav-link text-white" href="/register">Register</a>
                 </li>
                                 <li sec:authorize="isAuthenticated()" class="nav-item text-light">
